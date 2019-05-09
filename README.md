@@ -40,7 +40,7 @@ Now switch to Matlab.
 3. Assuming you have set the output to be verbose, you should see plots similar to the following appearing at this point:
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Pseudomoaner/cellsOnEdge/master/Images/EdgeProfile.PNG" alt="EdgeCapture"/>
+  <img src="https://raw.githubusercontent.com/Pseudomoaner/cellsOnEdge/master/Images/EdgeProfile2.PNG" alt="EdgeCapture"/>
 </p>
 
    Each red circle indicates the detected position of the colony edge in each image strip, while the connecting lines indicate the estimated profile of the edge. It is best to monitor these plots continuously as the script runs to ensure that the edge detection is working properly. If not, cancel the script and adjust the analysis parameters.
