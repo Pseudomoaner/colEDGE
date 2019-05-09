@@ -1,4 +1,4 @@
-# cellsOnEdge
+# colEDGE
 Analysis of location and composition of bacterial colony edges in microscopy data
 
 ## Introduction
@@ -9,7 +9,7 @@ When capturing the dynamics of bacterial colony expansion, it is often useful to
   <img src="https://raw.githubusercontent.com/Pseudomoaner/cellsOnEdge/master/Images/StitchedImg.png" alt="EdgeSchematic"/>
 </p>
 
-While this approach can provide a combination of excellent spatial resolution and long sampling times, the resulting datasets are typically too large to analyse efficiently by hand. cellsOnEdge is a suite of tools designed to automatically find the position and composition of the colony edge within these datasets.
+While this approach can provide a combination of excellent spatial resolution and long sampling times, the resulting datasets are typically too large to analyse efficiently by hand. colEDGE is a suite of tools designed to automatically find the position and composition of the colony edge within these datasets.
 
 ## Usage
 
