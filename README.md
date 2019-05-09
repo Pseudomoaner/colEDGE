@@ -50,10 +50,16 @@ Once the script has finished running, plots indicating the density of the front 
 
 On the left, the average packing fraction within each region at each timepoint is shown. On the right, the spatial composition of the 'front' region over time is shown.
 
-The data underlying these plots will also be saved as the 'frontPackingFractions' and 'stationaryPackingFractions' variables in the file 'PackingFractions.mat'.
+The data underlying these plots is saved as the 'frontPackingFractions' and 'stationaryPackingFractions' variables in the file 'PackingFractions.mat'.
 
 ### Part 3: Finding the edge composition
 If your colony consists of two separate populations of cells marked with different fluorescent labels, you can also measure the relative number of each cell type using the PlotEdgePackingFractions.m script.
+
+Similar to finding the packing fraction, once this script has finished running plots indicating the composition of the front and homeland will be generated:
+
+On the left, the average composition of the two regions within each region at each timepoint is shown. On the right, the spatial composition of the 'front' region over time is shown.
+
+The data underlying these plots will also be saved as the 'YFPProfile', 'CFPProfile', 'YFPStationaryProfile' and 'CFPStationaryProfile' variables in the file 'FluoProfiles.mat'.
 
 ## References
 
