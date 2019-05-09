@@ -6,7 +6,7 @@ Analysis of location and composition of bacterial colony edges in microscopy dat
 When capturing the dynamics of bacterial colony expansion, it is often useful to use tiles of images to monitor the position and composition of the colony edge at high resolution over long periods of time. For example, the following image is taken from a 2 mm x 0.15 mm x 12 hr dataset, and has been stitched together from 20 adjacent fields of view:
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Pseudomoaner/cellsOnEdge/master/Images/stitchedImg.png" alt="EdgeSchematic"/>
+  <img src="https://raw.githubusercontent.com/Pseudomoaner/cellsOnEdge/master/Images/StitchedImg.png" alt="EdgeSchematic"/>
 </p>
 
 While this approach can provide a combination of excellent spatial resolution and long sampling times, the resulting datasets are typically too large to analyse efficiently by hand. cellsOnEdge is a suite of tools designed to automatically find the position and composition of the colony edge within these datasets.
@@ -48,7 +48,7 @@ Now switch to Matlab.
 4. The script now saves the edge coordinates as the variables edgeYs and edgeXs in the root directory. The file is called 'ExtractedProfiles.mat'. It also plots timecourses of the edge position and colony expansion rate, along with the fitted model:
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Pseudomoaner/cellsOnEdge/master/Images/EdgePlots.png" alt="EdgePositionAndExpansionRate"/>
+  <img src="https://raw.githubusercontent.com/Pseudomoaner/cellsOnEdge/master/Images/EdgePlots.PNG" alt="EdgePositionAndExpansionRate"/>
 </p>
 
 ### Part 2: Finding the packing fraction
@@ -57,7 +57,7 @@ Now that the edge position has been found, the density of the colony at differen
 This script will find the density of the colony at two positions: the front (the region just behind the leading edge), and the 'homeland' (the position just behind the edge at the beginning of imaging). In the image below, the front is represented by the green rectangles while the edge is represented by the purple rectangles:
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Pseudomoaner/cellsOnEdge/master/Images/EdgeRegions.png" alt="EdgeRegions"/>
+  <img src="https://raw.githubusercontent.com/Pseudomoaner/cellsOnEdge/master/Images/EdgeRegions.PNG" alt="EdgeRegions"/>
 </p>
 
 These rectanges indicate the region over which the packing fraction is calculated. Note that the 'front' window undulates to match the shape of the colony edge, preventing the inclusion of regions outside of the colony proper.
@@ -65,7 +65,7 @@ These rectanges indicate the region over which the packing fraction is calculate
 Once the script has finished running, plots indicating the density of the front and homeland will be generated:
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Pseudomoaner/cellsOnEdge/master/Images/PackingFractionPlot.PNG" alt="EdgePacking"/>
+  <img src="https://raw.githubusercontent.com/Pseudomoaner/cellsOnEdge/master/Images/PackingFractionPlots.PNG" alt="EdgePacking"/>
 </p>
 
 On the left, the average packing fraction within each region at each timepoint is shown. On the right, the spatial composition of the 'front' region over time is shown.
@@ -78,7 +78,7 @@ If your colony consists of two separate populations of cells marked with differe
 Similar to finding the packing fraction, once this script has finished running plots indicating the composition of the front and homeland will be generated:
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Pseudomoaner/cellsOnEdge/master/Images/CompositionPlot.PNG" alt="EdgeComposition"/>
+  <img src="https://raw.githubusercontent.com/Pseudomoaner/cellsOnEdge/master/Images/CompositionPlots.PNG" alt="EdgeComposition"/>
 </p>
 
 On the left, the average composition of the two regions within each region at each timepoint is shown. On the right, the spatial composition of the 'front' region over time is shown.
