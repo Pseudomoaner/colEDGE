@@ -51,7 +51,7 @@ Now switch to Matlab.
   <img src="https://raw.githubusercontent.com/Pseudomoaner/cellsOnEdge/master/Images/EdgePlots.PNG" alt="EdgePositionAndExpansionRate"/>
 </p>
 
-### Part 2: Finding the packing fraction
+### Part 2: Finding the packing fraction of regions
 Now that the edge position has been found, the density of the colony at different positions can be found. Run the script PlotEdgePackingFractions.m to do this.
 
 This script will find the density of the colony at two positions: the front (the region just behind the leading edge), and the 'homeland' (the position just behind the edge at the beginning of imaging). In the image below, the front is represented by the green rectangles while the edge is represented by the purple rectangles:
@@ -72,7 +72,7 @@ On the left, the average packing fraction within each region at each timepoint i
 
 The data underlying these plots is saved as the 'frontPackingFractions' and 'stationaryPackingFractions' variables in the file 'PackingFractions.mat'.
 
-### Part 3: Finding the edge composition
+### Part 3: Finding the composition of regions
 If your colony consists of two separate populations of cells marked with different fluorescent labels, you can also measure the relative number of each cell type using the PlotEdgePackingFractions.m script.
 
 Similar to finding the packing fraction, once this script has finished running plots indicating the composition of the front and homeland will be generated:
