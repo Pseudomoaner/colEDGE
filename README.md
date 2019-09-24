@@ -16,7 +16,7 @@ While this approach can provide a combination of excellent spatial resolution an
 ### Part 0: Preprocessing
 Begin in Fiji/ImageJ.
 
-1. Brightfield images should be pre-processed to remove large-scale variations in intensity. They should also be split into separate frames, with each field of view stored in a separate folder. The scripts ProcessBulkBFSingleFrames63X.ijm and ProcessBulkBFSingleFrames20X.ijm perform these jobs. These two scripts contain settings for processing brightfield data from a Zeiss Observer microscope with 20X and 63X PlanApo objectives, but you will probably need to find parameters that fit your own dataset.
+1. Brightfield images should be pre-processed to remove large-scale variations in intensity. They should also be split into separate frames, with each field of view stored in a separate folder. The script ProcessBulkBFSingleFrames.ijm does this job.
 
 2. Fluorescence images should be split into separate frames, with each field of view stored in a separate folder. Despeckling is also advised. These jobs are performed by the script ProcessBulkFluo.ijm.
 
