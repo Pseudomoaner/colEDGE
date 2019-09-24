@@ -30,12 +30,12 @@ Now switch to Matlab.
    
 2. Edge extraction works through the following steps. Parameters involved at each stage are indicated in bold and in brackets:
 
-   1. Stitch together brightfield tile (**Root**, **imNos**, **imAngle**).
-   2. Binaraise resulting image using a global intensity threshold to estimate local coverage by cells (**imageThresh**).
-   3. Cut resulting binary image into strips running perpendicular to the direction of motion (**noBins**).
+   1. Binarise each frame in the tile using a combination of texture analysis and ridge detection (all fields of **segSets**).
+   2. Stitch the resulting images to create a single fused binary image (all fields of **stitchSets**).
+   3. Cut resulting binary image into strips running perpendicular to the direction of motion (**edgeSets.noBins**).
    4. Find the average coverage along each strip.
-   5. The edge is found as a point at which the average coverage value increases above a chosen value (**colonyThresh**). If the current timepoint is before the user-defined time of confluence (**confluenceFrame**), the edge is chosen as the *first* instance this crossing happens (moving from the colony exterior to the colony interior). if the current timepoint is after confluence, the edge is chosen as the *final* instance of this crossing).
-   6. The median edge position is then propogated to the next timepoint and used as the starting point to find the edge in the next set of strips. The algorithm can only look a fixed distance away from the previous timepoint's edge position (**sampleWindow**).
+   5. The edge is found as a point at which the average coverage value increases above a chosen value (**edgeSets.colonyThresh**). If the current timepoint is before the user-defined time of confluence (**edgeSets.confluenceFrame**), the edge is chosen as the *first* instance this crossing happens (moving from the colony exterior to the colony interior). if the current timepoint is after confluence, the edge is chosen as the *final* instance of this crossing).
+   6. The median edge position is then propogated to the next timepoint and used as the starting point to find the edge in the next set of strips. The algorithm can only look a fixed distance away from the previous timepoint's edge position (**edgeSets.sampleWindow**).
    
 3. Assuming you have set the output to be verbose, you should see plots similar to the following appearing at this point:
 
@@ -45,7 +45,7 @@ Now switch to Matlab.
 
    Each red circle indicates the detected position of the colony edge in each image strip, while the connecting lines indicate the estimated profile of the edge. It is best to monitor these plots continuously as the script runs to ensure that the edge detection is working properly. If not, cancel the script and adjust the analysis parameters.
 
-4. The script now saves the edge coordinates as the variables edgeYs and edgeXs in the root directory. The file is called 'ExtractedProfiles.mat'. It also plots timecourses of the edge position and colony expansion rate, along with the fitted model:
+4. The script now saves the edge coordinates as the variables edgeYs and edgeXs in the root directory, along with the segmented colony images. The file is called 'ExtractedProfiles.mat'. It also plots timecourses of the edge position and colony expansion rate, along with the fitted model:
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/Pseudomoaner/cellsOnEdge/master/Images/EdgePlots.PNG" alt="EdgePositionAndExpansionRate"/>
