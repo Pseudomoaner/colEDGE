@@ -3,7 +3,6 @@ function profile = getLeadingEdgePixelProfile(imFrame,edgeX,edgeY,pixelStripLeng
 %stitched image at the given coordinates by measuring the pixel intensities
 %in a strip running behind each given coordinate.
 %
-%
 %   INPUTS:
 %       -imFrame: A stitched image.
 %       -edgeYs: Y-coordinates of the colony edge. In pixels.
