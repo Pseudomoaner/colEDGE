@@ -72,7 +72,7 @@ On the left, the average packing fraction within each region at each timepoint i
 
 The data underlying these plots is saved as the 'frontPackingFractions' and 'stationaryPackingFractions' variables in the file 'PackingFractions.mat'.
 
-### Part 3: Finding the composition of monolayer regions
+### Part 3a: Finding the composition of monolayer regions
 If your colony consists of two separate populations of cells marked with different fluorescent labels, you can also measure the relative number of each cell type in monolayer regions using the PlotEdgeMonolayerFluoProfiles.m script.
 
 Before you run this function, you will first need to save flatfield images of both channels. An easy way of doing this is to select a field of view containing no cells for the first ~30-40 frames, and averaging the two fluorescence channels over these empty timepoints. This allows you to extract the source-free flatfield image, allowing you to correct for inhomogeneities in your lightpath. Examples of YFP (left) and CFP (right) flatfield images are shown below:
@@ -93,7 +93,7 @@ On the left, the average composition of the two regions within each region at ea
 
 The data underlying these plots will also be saved as the 'YFPProfile', 'CFPProfile', 'YFPStationaryProfile' and 'CFPStationaryProfile' variables in the file 'FluoProfiles.mat'.
 
-### Part 4: Finding the composition of multi-layered regions
+### Part 3b: Finding the composition of multi-layered regions
 Unfortunately, the algorithm of PlotEdgePackingFractions.m is unable to accurately assign populations if your system becomes multi-layered. This is because it fundamentally assumes that each pixel corresponds either to one cell from population 1, one cell from population 2, or no cell at all - it is unable to accurately quantify regions in which there are multiple layers of a single population, or a mixture of the two populations.
 
 For datasets where this is the case, instead use the PlotEdgeMultilayerFluoProfiels.m script. This script estimates the fluorescence of individual cells in the two channels using the outermost rim of cells, which generally remains single-layered even in multi-layered datasets. These fluorescence values are then used to estimate the depth of the two cell types in each pixel of the image, allowing more accurate composition analysis.
