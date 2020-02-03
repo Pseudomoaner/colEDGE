@@ -42,8 +42,16 @@ edgeYs = zeros(edgeSets.noBins,size(frameNos,2));
 for i = 1:size(frameNos,2)
     frameNo = frameNos(i);
     
+    if i == 70
+        segSets.covThresh = 1.6;
+    elseif i == 123
+        segSets.covThresh = 2.0;
+    elseif i == 152
+        segSets.covThresh = 1.5;
+    end
+    
     %Start by stitching together the frame
-    frameSeg = stitchFrame(BfImgPaths,imStem,frameNo,stitchSets,segSets);
+    frameSeg = stitchFrame(BfImgPaths,imStem,[],frameNo,stitchSets,segSets);
     
     imwrite(frameSeg,[stitchPath,filesep,sprintf(imStem,frameNo)])
     

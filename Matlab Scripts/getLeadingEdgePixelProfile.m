@@ -30,8 +30,8 @@ for j = 1:length(edgeX)
     maxY = min(edgeY(j),size(imFrame,1));
     minY = max(maxY - pixelStripLength + 1,1);
     
-    maxX = (edgeX(j) + xSeparation/2)-1;
-    minX = (edgeX(j) - xSeparation/2);
+    maxX = round((edgeX(j) + xSeparation/2)-1);
+    minX = round((edgeX(j) - xSeparation/2));
     
     imStrip = imFrame(minY:maxY,minX:maxX);
     

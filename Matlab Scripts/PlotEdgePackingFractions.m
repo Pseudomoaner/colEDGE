@@ -10,14 +10,14 @@ close all
 
 set(0,'defaulttextinterpreter','latex')
 
-Root = 'E:\RosettePaper\Processed data\SubsurfaceCocultures\28_11_17_PilH_YFP_WT_CFP_ColonyExpansion\'; %Root directory where your images are stored
+Root = 'C:\Users\ph1ojm\Desktop\ColEDGE_Tester\20_10_17_PilH_YFP_WT_CFP_ColonyExpansion\'; %Root directory where your images are stored
 
 saveTracePath = [Root,'ExtractedProfiles.mat'];
 load(saveTracePath,'edgeYs','edgeXs','imStem','Times','frameNos','stitchPath','pxSize','dt')
 
 savePackingPath = [Root,'PackingFractions.mat'];
 
-reprocess = true;
+reprocess = false;
 
 %Second loop finds the packing fraction profile from the colony edge
 if reprocess || ~exist(savePackingPath,'file')

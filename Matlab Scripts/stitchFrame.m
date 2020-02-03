@@ -1,4 +1,4 @@
-function frame = stitchFrame(ImRoots,ImStem,frameIndex,stitchSets,segSets)
+function frame = stitchFrame(ImRoots,ImStem,flatField,frameIndex,stitchSets,segSets)
 %STITCHFRAME stitches together the tiled image in the given directory.
 %   
 %   INPUTS:
@@ -6,6 +6,8 @@ function frame = stitchFrame(ImRoots,ImStem,frameIndex,stitchSets,segSets)
 %       Should be a Nx1 cell array of strings, where N is the total number
 %       number of fields of view in the tile.
 %       -ImStem: The format of the filename each image is saved as
+%       -flatField: The flatfield (empty, time averaged) image for the
+%       current channel. Can be empty.
 %       -frameIndex: The current timepoint you wish to stitch the image
 %       together for
 %       -stitchSets: The settings to define the geometry of the image
@@ -22,6 +24,10 @@ frame = [];
 for j = 1:length(ImRoots)
     framePath = [ImRoots{j},sprintf(ImStem,frameIndex)];
     frameTmp = double(imread(framePath));
+    
+    if ~isempty(flatField)
+        frameTmp = frameTmp./flatField;
+    end
     
     if stitchSets.normalise %If true, will set range of all sub-frames to be equal, varying between 0 and 1.
         maxFrameTmp = prctile(frameTmp(:),99.99);
