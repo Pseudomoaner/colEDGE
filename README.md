@@ -96,9 +96,13 @@ The data underlying these plots will also be saved as the 'YFPProfile', 'CFPProf
 ### Part 3b: Finding the composition of multi-layered regions
 Unfortunately, the algorithm of PlotEdgePackingFractions.m is unable to accurately assign populations if your system becomes multi-layered. This is because it fundamentally assumes that each pixel corresponds either to one cell from population 1, one cell from population 2, or no cell at all - it is unable to accurately quantify regions in which there are multiple layers of a single population, or a mixture of the two populations.
 
-For datasets where this is the case, instead use the PlotEdgeMultilayerFluoProfiels.m script. This script estimates the fluorescence of individual cells in the two channels using the outermost rim of cells, which generally remains single-layered even in multi-layered datasets. These fluorescence values are then used to estimate the depth of the two cell types in each pixel of the image, allowing more accurate composition analysis.
+For datasets where this is the case, instead use the PlotEdgeMultilayerFluoProfiles.m script. This script estimates the fluorescence of individual cells in the two channels using the outermost rim of cells, which generally remains single-layered even in multi-layered datasets. These fluorescence values are then used to estimate the depth of the two cell types in each pixel of the image, allowing more accurate composition analysis.
 
+Use of PlotEdgeMultilayerFluoProfiles.m is similar to that of PlotEdgeMonolayerFluoProfiles.m. The resulting plots and output data are broadly the same, although PlotEdgeMultilayerFluoProfiles.m does not currently support quantification of the homeland:
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Pseudomoaner/cellsOnEdge/master/Images/CompositionPlots2.PNG" alt="EdgeComposition"/>
+</p>
 
 ## References
 
