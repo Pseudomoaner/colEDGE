@@ -72,8 +72,8 @@ On the left, the average packing fraction within each region at each timepoint i
 
 The data underlying these plots is saved as the 'frontPackingFractions' and 'stationaryPackingFractions' variables in the file 'PackingFractions.mat'.
 
-### Part 3: Finding the composition of regions
-If your colony consists of two separate populations of cells marked with different fluorescent labels, you can also measure the relative number of each cell type using the PlotEdgePackingFractions.m script.
+### Part 3: Finding the composition of monolayer regions
+If your colony consists of two separate populations of cells marked with different fluorescent labels, you can also measure the relative number of each cell type in monolayer regions using the PlotEdgePackingFractions.m script.
 
 Similar to finding the packing fraction, once this script has finished running plots indicating the composition of the front and homeland will be generated:
 
@@ -85,6 +85,11 @@ On the left, the average composition of the two regions within each region at ea
 
 The data underlying these plots will also be saved as the 'YFPProfile', 'CFPProfile', 'YFPStationaryProfile' and 'CFPStationaryProfile' variables in the file 'FluoProfiles.mat'.
 
+### Part 4: Finding the composition of multi-layered regions
+Unfortunately, the algorithm of PlotEdgePackingFractions.m is unable to accurately assign populations if your system becomes multi-layered. This is because it fundamentally assumes that each pixel corresponds either to one cell from population 1, one cell from population 2, or no cell at all - it is unable to accurately quantify regions in which there are multiple layers of a single population, or a mixture of the two populations.
+
+For datasets where this is the case, instead use the 
+
 ## References
 
-- Reference to my paper when it's finally out!
+**Bacteria solve the problem of crowding by moving slowly**, Oliver J. Meacock, Amin Doostmohammadi, Kevin R. Foster, Julia M. Yeomans and William M. Durham.
