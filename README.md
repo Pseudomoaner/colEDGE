@@ -75,6 +75,14 @@ The data underlying these plots is saved as the 'frontPackingFractions' and 'sta
 ### Part 3: Finding the composition of monolayer regions
 If your colony consists of two separate populations of cells marked with different fluorescent labels, you can also measure the relative number of each cell type in monolayer regions using the PlotEdgeMonolayerFluoProfiles.m script.
 
+Before you run this function, you will first need to save flatfield images of both channels. An easy way of doing this is to select a field of view containing no cells for the first ~30-40 frames, and averaging the two fluorescence channels over these empty timepoints. This allows you to extract the source-free flatfield image, allowing you to correct for inhomogeneities in your lightpath. Examples of YFP (left) and CFP (right) flatfield images are shown below:
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Pseudomoaner/cellsOnEdge/master/Images/Flatfields.PNG" alt="Flatfield images"/>
+</p>
+
+These should be saved as 'YFP_Flatfield.tif' and 'CFP_Flatfield.tif' in your data directory.
+
 Similar to finding the packing fraction, once this script has finished running plots indicating the composition of the front and homeland will be generated:
 
 <p align="center">
