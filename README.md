@@ -16,7 +16,7 @@ While this approach can provide a combination of excellent spatial resolution an
 ### Part 0: Preprocessing
 Begin in Fiji/ImageJ.
 
-1. Brightfield images should be pre-processed to allow easy binarisation of the colony image (i.e. to allow cells and background to be distinguished with a simple threshold). They should also be split into separate frames, with each field of view stored in a separate folder. The scripts ProcessBulkBFSingleFrames63X.ijm and ProcessBulkBFSingleFrames20X.ijm perform these jobs. These two scripts contain settings for processing brightfield data from a Zeiss Observer microscope with 20X and 63X PlanApo objectives, but you will probably need to find parameters that fit your own dataset.
+1. Brightfield images should be pre-processed to remove large-scale variations in intensity. They should also be split into separate frames, with each field of view stored in a separate folder. The script ProcessBulkBFSingleFrames.ijm does this job.
 
 2. Fluorescence images should be split into separate frames, with each field of view stored in a separate folder. Despeckling is also advised. These jobs are performed by the script ProcessBulkFluo.ijm.
 
@@ -30,11 +30,11 @@ Now switch to Matlab.
    
 2. Edge extraction works through the following steps. Parameters involved at each stage are indicated in bold and in brackets:
 
-   1. Stitch together brightfield tile (**Root**, **rootStem**, **imStem**, **imNos**, **stitchSets**).
-   2. Binaraise resulting image using a mixture of ridge detection and texture analysis (**segSets**, **stitchStem**).
+   1. Binarise each frame in the tile using a combination of texture analysis and ridge detection (all fields of **segSets**).
+   2. Stitch the resulting images to create a single fused binary image (all fields of **stitchSets**).
    3. Cut resulting binary image into strips running perpendicular to the direction of motion (**edgeSets.noBins**).
    4. Find the average coverage along each strip.
-   5. The edge is found as a point at which the average coverage value increases above a chosen value (**edgeSets.colonyThresh**). If the current timepoint is before the user-defined time of confluence (**edgeSets.confluenceFrame**), the edge is chosen as the *first* instance this crossing happens (moving from the colony exterior to the colony interior). If the current timepoint is after confluence, the edge is chosen as the *final* instance of this crossing).
+   5. The edge is found as a point at which the average coverage value increases above a chosen value (**edgeSets.colonyThresh**). If the current timepoint is before the user-defined time of confluence (**edgeSets.confluenceFrame**), the edge is chosen as the *first* instance this crossing happens (moving from the colony exterior to the colony interior). if the current timepoint is after confluence, the edge is chosen as the *final* instance of this crossing).
    6. The median edge position is then propogated to the next timepoint and used as the starting point to find the edge in the next set of strips. The algorithm can only look a fixed distance away from the previous timepoint's edge position (**edgeSets.sampleWindow**).
    
 3. Assuming you have set the output to be verbose, you should see plots similar to the following appearing at this point:
@@ -45,7 +45,7 @@ Now switch to Matlab.
 
    Each red circle indicates the detected position of the colony edge in each image strip, while the connecting lines indicate the estimated profile of the edge. It is best to monitor these plots continuously as the script runs to ensure that the edge detection is working properly. If not, cancel the script and adjust the analysis parameters.
 
-4. The script now saves the edge coordinates as the variables edgeYs and edgeXs in the root directory. The file is called 'ExtractedProfiles.mat'. It also plots timecourses of the edge position and colony expansion rate, along with the fitted model:
+4. The script now saves the edge coordinates as the variables edgeYs and edgeXs in the root directory, along with the segmented colony images. The file is called 'ExtractedProfiles.mat'. It also plots timecourses of the edge position and colony expansion rate, along with the fitted model:
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/Pseudomoaner/cellsOnEdge/master/Images/EdgePlots.PNG" alt="EdgePositionAndExpansionRate"/>
@@ -72,8 +72,16 @@ On the left, the average packing fraction within each region at each timepoint i
 
 The data underlying these plots is saved as the 'frontPackingFractions' and 'stationaryPackingFractions' variables in the file 'PackingFractions.mat'.
 
-### Part 3: Finding the composition of regions
-If your colony consists of two separate populations of cells marked with different fluorescent labels, you can also measure the relative number of each cell type using the PlotEdgePackingFractions.m script.
+### Part 3a: Finding the composition of monolayer regions
+If your colony consists of two separate populations of cells marked with different fluorescent labels, you can also measure the relative number of each cell type in monolayer regions using the PlotEdgeMonolayerFluoProfiles.m script.
+
+Before you run this function, you will first need to save flatfield images of both channels. An easy way of doing this is to select a field of view containing no cells for the first ~30-40 frames, and averaging the two fluorescence channels over these empty timepoints. This allows you to extract the source-free flatfield image, allowing you to correct for inhomogeneities in your lightpath. Examples of YFP (left) and CFP (right) flatfield images are shown below:
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Pseudomoaner/cellsOnEdge/master/Images/Flatfields.PNG" alt="Flatfield images"/>
+</p>
+
+These should be saved as 'YFP_Flatfield.tif' and 'CFP_Flatfield.tif' in your data directory.
 
 Similar to finding the packing fraction, once this script has finished running plots indicating the composition of the front and homeland will be generated:
 
@@ -85,6 +93,17 @@ On the left, the average composition of the two regions within each region at ea
 
 The data underlying these plots will also be saved as the 'YFPProfile', 'CFPProfile', 'YFPStationaryProfile' and 'CFPStationaryProfile' variables in the file 'FluoProfiles.mat'.
 
+### Part 3b: Finding the composition of multi-layered regions
+Unfortunately, the algorithm of PlotEdgePackingFractions.m is unable to accurately assign populations if your system becomes multi-layered. This is because it fundamentally assumes that each pixel corresponds either to one cell from population 1, one cell from population 2, or no cell at all - it is unable to accurately quantify regions in which there are multiple layers of a single population, or a mixture of the two populations.
+
+For datasets where this is the case, instead use the PlotEdgeMultilayerFluoProfiles.m script. This script estimates the fluorescence of individual cells in the two channels using the outermost rim of cells, which generally remains single-layered even in multi-layered datasets. These fluorescence values are then used to estimate the depth of the two cell types in each pixel of the image, allowing more accurate composition analysis.
+
+Use of PlotEdgeMultilayerFluoProfiles.m is similar to that of PlotEdgeMonolayerFluoProfiles.m. The resulting plots and output data are broadly the same, although PlotEdgeMultilayerFluoProfiles.m does not currently support quantification of the homeland:
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Pseudomoaner/cellsOnEdge/master/Images/CompositionPlots2.PNG" alt="EdgeComposition"/>
+</p>
+
 ## References
 
-- Reference to my paper when it's finally out!
+**Bacteria solve the problem of crowding by moving slowly**, Oliver J. Meacock, Amin Doostmohammadi, Kevin R. Foster, Julia M. Yeomans and William M. Durham.

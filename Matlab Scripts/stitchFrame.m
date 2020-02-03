@@ -1,4 +1,4 @@
-function frame = stitchFrame(ImRoots,ImStem,imAngle,imOverlap,frameIndex,normalize)
+function frame = stitchFrame(ImRoots,ImStem,flatField,frameIndex,stitchSets,segSets)
 %STITCHFRAME stitches together the tiled image in the given directory.
 %   
 %   INPUTS:
@@ -6,14 +6,14 @@ function frame = stitchFrame(ImRoots,ImStem,imAngle,imOverlap,frameIndex,normali
 %       Should be a Nx1 cell array of strings, where N is the total number
 %       number of fields of view in the tile.
 %       -ImStem: The format of the filename each image is saved as
-%       -imAngle: The angle (in degrees) through which each sub-image
-%       should be rotated to ensure the colony image is contiguous 
-%       -imOverlap: The percentage overlap with which adjacent images in
-%       the tile overlap.
+%       -flatField: The flatfield (empty, time averaged) image for the
+%       current channel. Can be empty.
 %       -frameIndex: The current timepoint you wish to stitch the image
 %       together for
-%       -normalise: Whether to set the range of each sub-image in the tile
-%       to vary between 0 and 1.
+%       -stitchSets: The settings to define the geometry of the image
+%       stitching
+%       -segSets: The settings used to define the segmentation of the
+%       colony images.
 %
 %   OUTPUTS:
 %       -frame: The stitched image.
@@ -24,17 +24,26 @@ frame = [];
 for j = 1:length(ImRoots)
     framePath = [ImRoots{j},sprintf(ImStem,frameIndex)];
     frameTmp = double(imread(framePath));
-    if normalize %If true, will set range of all sub-frames to be equal, varying between 0 and 1.
+    
+    if ~isempty(flatField)
+        frameTmp = frameTmp./flatField;
+    end
+    
+    if stitchSets.normalise %If true, will set range of all sub-frames to be equal, varying between 0 and 1.
         maxFrameTmp = prctile(frameTmp(:),99.99);
         minFrameTmp = prctile(frameTmp(:),0.01);
         frameTmp = (frameTmp - minFrameTmp)./(maxFrameTmp-minFrameTmp);
         frameTmp(frameTmp > 1) = 1;
     end
     
-    frameTmp = imrotate(frameTmp,imAngle);
+    if segSets.segment
+        frameTmp = segmentColonyExpansionImgs(frameTmp,segSets.nHood,segSets.covThresh,segSets.ridgeScale,segSets.ridgeThresh,segSets.areaThresh);
+    end
+    
+    frameTmp = imrotate(frameTmp,stitchSets.imAngle);
     
     %Take into account the overlap between scenes
-    halfOverlap = round((imOverlap/200)*size(frameTmp,1)); %ImageOverlap is in percent
+    halfOverlap = round((stitchSets.imOverlap/200)*size(frameTmp,1)); %ImageOverlap is in percent
     if j == length(ImRoots)
         frameTmp = frameTmp(halfOverlap:end,:);
     elseif j ==  1
