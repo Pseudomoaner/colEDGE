@@ -106,4 +106,4 @@ Use of PlotEdgeMultilayerFluoProfiles.m is similar to that of PlotEdgeMonolayerF
 
 ## References
 
-**Bacteria solve the problem of crowding by moving slowly**, Oliver J. Meacock, Amin Doostmohammadi, Kevin R. Foster, Julia M. Yeomans and William M. Durham.
+- Meacock, O.J., Doostmohammadi, A., Foster, K.R. et al (2020). Bacteria solve the problem of crowding by moving slowly. Nat. Phys. https://doi.org/10.1038/s41567-020-01070-6
